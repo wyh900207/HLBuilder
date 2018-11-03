@@ -14,8 +14,10 @@ typedef NS_ENUM(NSUInteger, HLBuildType) {
     HLBuildTypeRelease
 };
 
+// ----------------- 打包相关配置 -----------------
+
 // 项目路径
-#define HL_PROJECT_PATH @"~/Desktop/hola/zst-ios"
+#define HL_PROJECT_PATH @"~/Desktop/zst-ios"
 // ipa输出路径
 #define HL_ARCHIVE_PATH @"~/Desktop/Project"
 // 工作空间
@@ -28,5 +30,18 @@ typedef NS_ENUM(NSUInteger, HLBuildType) {
 #else
     #define HL_BUILD_TARGET_NAME @"DistributionHTTPS"
 #endif
+
+// ----------------- fir.im 相关配置 -----------------
+
+
+#ifdef DEV
+    #define HL_API_TOKEN @"fabcc9f2ead3822c36b31c790e997b60"                    // fir.im api_token
+#elif DIS
+    #define HL_API_TOKEN @"d1489bd781405a3e4e36e42035b61fe5"                    // fir.im api_token
+#else
+    #define HL_API_TOKEN @"d1489bd781405a3e4e36e42035b61fe5"                    // fir.im api_token
+#endif
+
+
 
 #endif /* Header_h */
