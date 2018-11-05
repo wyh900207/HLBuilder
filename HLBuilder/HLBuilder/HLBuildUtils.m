@@ -32,7 +32,7 @@
     
     // 执行`build`脚本
     NSString *buildShell = [NSString stringWithFormat:@"%@\n %@\n %@\n", cd, clean, build];
-    system([buildShell cStringUsingEncoding:NSUTF8StringEncoding]);
+    //system([buildShell cStringUsingEncoding:NSUTF8StringEncoding]);
     
     // 3.输出包
     NSString *run = [NSString stringWithFormat:@"/usr/bin/xcrun -sdk iphoneos PackageApplication -v %@", [pathUtils archivePathWith:type]];
@@ -56,6 +56,10 @@
         
         NSLog(@"createFilePath：%@", params);
         
+        NSString *ipakey = params.cert.binary.key;
+        NSString *ipaToken = params.cert.binary.token;
+        NSString *ipaUploadURL = params.cert.binary.upload_url;
+        
         // 上传
         NSString *cdProjectPath = [NSString stringWithFormat:@"cd %@", HL_ARCHIVE_PATH];
         NSString *uplod = [NSString stringWithFormat:@"curl -F \"key=%@\"                    \
@@ -64,14 +68,14 @@
                            -F \"x:name=由你花\"               \
                            -F \"x:version=1.0.0\"            \
                            -F \"x:build=1\"                  \
-                           -F \"x:release_type=3\"           \
+                           -F \"x:release_type=Adhoc\"       \
                            -F \"x:changelog=null\"           \
-                           https://upload.qbox.me", params.cert.binary.key, params.cert.binary.token, HL_BUILD_TARGET_NAME];
+                           %@", ipakey, ipaToken, HL_BUILD_TARGET_NAME, ipaUploadURL];
         NSString *removeJsonFile = @"rm fir-params.json";
         
         // 执行`xrun`脚本
         //NSString *shell = [NSString stringWithFormat:@"%@\n %@\n %@\n", run, cdProjectPath, uplod];
-        NSString *shell = [NSString stringWithFormat:@"%@\n %@\n %@\n", removeJsonFile, cdProjectPath, uplod];
+        NSString *shell = [NSString stringWithFormat:@"%@\n %@\n %@\n %@\n", run, cdProjectPath, removeJsonFile, uplod];
         system([shell cStringUsingEncoding:NSUTF8StringEncoding]);
     } else {
         system([run cStringUsingEncoding:NSUTF8StringEncoding]);

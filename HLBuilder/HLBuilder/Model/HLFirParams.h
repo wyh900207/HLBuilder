@@ -33,5 +33,6 @@
 
 @property (nonatomic, copy) NSString *key;
 @property (nonatomic, copy) NSString *token;
+@property (nonatomic, copy) NSString *upload_url;
 
 @end
