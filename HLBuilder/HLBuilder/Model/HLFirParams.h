@@ -24,6 +24,7 @@
 
 @interface HLFirCerParams : NSObject
 
+@property (nonatomic, strong) HLFirBinaryParams *icon;
 @property (nonatomic, strong) HLFirBinaryParams *binary;
 
 @end

@@ -56,13 +56,23 @@
         
         NSLog(@"createFilePath：%@", params);
         
+        NSString *cdProjectPath = [NSString stringWithFormat:@"cd %@", HL_ARCHIVE_PATH];
+        
+        // 上传Icon
+        NSString *iconKey = params.cert.icon.key;
+        NSString *iconToken = params.cert.icon.token;
+        NSString *iconUploadURL = params.cert.icon.upload_url;
+        NSString *uploadIcon = [NSString stringWithFormat:@"curl \
+                              -F \"key=%@\"                      \
+                              -F \"token=%@\"                    \
+                              -F \"file=@icon.png\"              \
+                              %@", iconKey, iconToken, iconUploadURL];
+        
+        // 上传IPA
         NSString *ipakey = params.cert.binary.key;
         NSString *ipaToken = params.cert.binary.token;
         NSString *ipaUploadURL = params.cert.binary.upload_url;
-        
-        // 上传
-        NSString *cdProjectPath = [NSString stringWithFormat:@"cd %@", HL_ARCHIVE_PATH];
-        NSString *uplod = [NSString stringWithFormat:@"curl -F \"key=%@\"                    \
+        NSString *uplodIpa = [NSString stringWithFormat:@"curl -F \"key=%@\"                    \
                            -F \"token=%@\"                   \
                            -F \"file=@%@.ipa\"               \
                            -F \"x:name=由你花\"               \
@@ -74,8 +84,7 @@
         NSString *removeJsonFile = @"rm fir-params.json";
         
         // 执行`xrun`脚本
-        //NSString *shell = [NSString stringWithFormat:@"%@\n %@\n %@\n", run, cdProjectPath, uplod];
-        NSString *shell = [NSString stringWithFormat:@"%@\n %@\n %@\n %@\n", run, cdProjectPath, removeJsonFile, uplod];
+        NSString *shell = [NSString stringWithFormat:@"%@\n %@\n %@\n %@\n %@\n", run, cdProjectPath, uploadIcon,removeJsonFile, uplodIpa];
         system([shell cStringUsingEncoding:NSUTF8StringEncoding]);
     } else {
         system([run cStringUsingEncoding:NSUTF8StringEncoding]);
