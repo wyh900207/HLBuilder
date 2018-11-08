@@ -32,7 +32,7 @@
     
     // 执行`build`脚本
     NSString *buildShell = [NSString stringWithFormat:@"%@\n %@\n %@\n", cd, clean, build];
-    //system([buildShell cStringUsingEncoding:NSUTF8StringEncoding]);
+    system([buildShell cStringUsingEncoding:NSUTF8StringEncoding]);
     
     // 3.输出包
     NSString *run = [NSString stringWithFormat:@"/usr/bin/xcrun -sdk iphoneos PackageApplication -v %@", [pathUtils archivePathWith:type]];
@@ -46,7 +46,6 @@
     int fetchParamsResponseStatus = system([fechParamsString cStringUsingEncoding:NSUTF8StringEncoding]);
     
     if (fetchParamsResponseStatus == 0) {
-        //system([echo cStringUsingEncoding:NSUTF8StringEncoding]);
         NSData *data = [NSData dataWithContentsOfFile: outputPath];
         NSLog(@"NSData类方法读取的内容是：%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         NSString *desk = NSSearchPathForDirectoriesInDomains(NSDesktopDirectory, NSUserDomainMask, YES).firstObject;
@@ -58,15 +57,15 @@
         
         NSString *cdProjectPath = [NSString stringWithFormat:@"cd %@", HL_ARCHIVE_PATH];
         
-        // 上传Icon
-        NSString *iconKey = params.cert.icon.key;
-        NSString *iconToken = params.cert.icon.token;
-        NSString *iconUploadURL = params.cert.icon.upload_url;
-        NSString *uploadIcon = [NSString stringWithFormat:@"curl \
-                              -F \"key=%@\"                      \
-                              -F \"token=%@\"                    \
-                              -F \"file=@icon.png\"              \
-                              %@", iconKey, iconToken, iconUploadURL];
+//        // 上传Icon
+//        NSString *iconKey = params.cert.icon.key;
+//        NSString *iconToken = params.cert.icon.token;
+//        NSString *iconUploadURL = params.cert.icon.upload_url;
+//        NSString *uploadIcon = [NSString stringWithFormat:@"curl \
+//                              -F \"key=%@\"                      \
+//                              -F \"token=%@\"                    \
+//                              -F \"file=@icon.png\"              \
+//                              %@", iconKey, iconToken, iconUploadURL];
         
         // 上传IPA
         NSString *ipakey = params.cert.binary.key;
@@ -84,7 +83,8 @@
         NSString *removeJsonFile = @"rm fir-params.json";
         
         // 执行`xrun`脚本
-        NSString *shell = [NSString stringWithFormat:@"%@\n %@\n %@\n %@\n %@\n", run, cdProjectPath, uploadIcon,removeJsonFile, uplodIpa];
+        //NSString *shell = [NSString stringWithFormat:@"%@\n %@\n %@\n %@\n %@\n", run, cdProjectPath, uploadIcon,removeJsonFile, uplodIpa];
+        NSString *shell = [NSString stringWithFormat:@"%@\n %@\n %@\n %@\n", run, cdProjectPath,removeJsonFile, uplodIpa];
         system([shell cStringUsingEncoding:NSUTF8StringEncoding]);
     } else {
         system([run cStringUsingEncoding:NSUTF8StringEncoding]);

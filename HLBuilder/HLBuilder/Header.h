@@ -17,7 +17,7 @@ typedef NS_ENUM(NSUInteger, HLBuildType) {
 // ----------------- 打包相关配置 -----------------
 
 // 项目路径
-#define HL_PROJECT_PATH @"~/Desktop/zst-ios"
+#define HL_PROJECT_PATH @"~/Desktop/jsm-ios"
 // ipa输出路径
 #define HL_ARCHIVE_PATH @"~/Desktop/Project"
 // 工作空间
@@ -39,7 +39,7 @@ typedef NS_ENUM(NSUInteger, HLBuildType) {
 #elif DIS
     #define HL_API_TOKEN @"d1489bd781405a3e4e36e42035b61fe5"                    // fir.im api_token
 #else
-    #define HL_API_TOKEN @"d1489bd781405a3e4e36e42035b61fe5"                    // fir.im api_token
+    #define HL_API_TOKEN @"c8576dfb16b47dd9a1a26a9acf80e207"                    // fir.im api_token
 #endif
 
 
